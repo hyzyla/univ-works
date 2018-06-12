@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Лаба</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+   .row.content {
+     height: 1000px;
+   }
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav" style="padding: 10px;">
+      <h4>Лаба</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="/">Головна сторінка</a></li>
+      </ul><br>
+    </div>
+    <div class="col-sm-9" style="padding: 10px;">
+      <h4><small>Команда</small></h4>
+      <select id="command" class="custom-select custom-select-md mb-3">
+        <option disabled selected value> -- виберіть команду -- </option>
+        {% for command in functions %}
+        <option value"{{ command }}"> {{ command}} </option>
+        {% endfor %}
+      </select>
+      <h4><small>Дані (JSON)</small></h4>
+      <input type="text" id="form-data" class="form-control" placeholder="Введіть дані" aria-label="Username" aria-describedby="basic-addon1">
+      <p></p>
+      <button id="send-button" type="button" class="btn btn-primary">Відправити</button>
+    </div>
+
+  </div>
+</div>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script>
+  $( "#send-button" ).click(function() {
+    let formValue = $("#form-data").val();
+    let command = $("#command").val();
+    formValue = JSON.parse(formValue);
+    console.log(command);
+    $.post("command", {'command': command, 'value': formValue}, function(data, status){
+          alert("Data: " + data + "\nStatus: " + status);
+      });
+  });
+</script>
+</body>
+</html>

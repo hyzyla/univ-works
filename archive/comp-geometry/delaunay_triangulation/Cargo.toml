@@ -1,0 +1,6 @@
+[package]
+name = "delaunay_triangulation"
+version = "0.1.0"
+authors = ["hyzyla@gmail.com"]
+
+[dependencies]
